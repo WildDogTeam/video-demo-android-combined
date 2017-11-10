@@ -8,17 +8,17 @@
 
 应用创建成功后，进入“管理应用-->身份认证-->登录方式”。开启匿名登录。
 
-![](https://itolfh.gitbooks.io/video/content/assets/openanonymous.png)
+![](https://github.com/WildDogTeam/video-demo-android-conference/raw/master/images/openanonymous.png)
 
 ## 3. 开启实时视频通话
 
 进入 管理应用-实时视频通话，开启视频通话功能。此处注意配置页面下方`config`中的`videoURL`
 
-![](https://github.com/WildDogTeam/video-demo-web-conference/raw/master/images/video_quickstart_openVideo.png)
+![](https://github.com/WildDogTeam/video-demo-android-conference/raw/master/images/video_quickstart_openVideo.png)
 
 **提示：**
 如果之前没有使用过sync服务的需要手动开启
-![](https://github.com/WildDogTeam/video-demo-web-conference/raw/master/images/opensync.png)
+![](https://github.com/WildDogTeam/video-demo-android-conference/raw/master/images/opensync.png)
 
 ## 4. 开启实时视频通话
 
