@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 leftMenu.deteachAll();
                 showRemoteViews();
             }else {
-                deteachAll();
                 leftMenu.showRemoteViews();
             }
         }
@@ -88,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView roomNum;
     private TextView quit;
     private PromptDialog promptDialog;
-    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStreamAdded(WilddogRoom wilddogRoom, RoomStream roomStream) {
-                //订阅流 如果超过8个就补订阅流
+                //订阅流 如果超过8个就不订阅流
                 if(streamHolders.size()>=7)return;
                 room.subscribe(roomStream);
             }
@@ -187,7 +184,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStreamChanged(WilddogRoom wilddogRoom, RoomStream roomStream) {
-                // 混流使用
             }
 
             @Override
@@ -287,8 +283,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout = (DrawerLayout) findViewById(R.id.v4_drawerlayout);
 
         findViewById(R.id.iv_show).setOnClickListener(this);
-
-        linearLayout = (LinearLayout) findViewById(R.id.ll_show);
 
         findViewById(R.id.iv_hide).setOnClickListener(this);
 

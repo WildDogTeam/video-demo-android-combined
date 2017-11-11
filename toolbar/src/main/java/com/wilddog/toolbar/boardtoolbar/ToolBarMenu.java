@@ -207,61 +207,20 @@ public class ToolBarMenu extends ViewGroup {
         mMaxButtonWidth = 0;
         mMaxButtonHeight = 0;
 
-       /* for (int i = 0; i < mButtonsCount; i++) {
-            View child = getChildAt(i);
-
-            if (child.getVisibility() == GONE) {
-                continue;
-            }
-
-            switch (mExpandDirection) {
-
-                case EXPAND_UP:
-                case EXPAND_DOWN:
-//                    mMaxButtonWidth = Math.max(mMaxButtonWidth, child.getMeasuredWidth());
-//                    height += child.getMeasuredHeight();
-                    if (child == mAddView) {
-                        height = mAddView.getMeasuredHeight();
-//                        width += mAddView.getMeasuredWidth() / 2;
-                    } else {
-                        width += child.getMeasuredWidth();
-                        mMaxButtonHeight = Math.max(mMaxButtonHeight, child.getMeasuredHeight());
-                    }
-                    break;
-                case EXPAND_LEFT:
-                case EXPAND_RIGHT:
-                    if (child == mAddView) {
-                        width = mAddView.getMeasuredWidth();
-//                        width += mAddView.getMeasuredWidth() / 2;
-                    } else {
-                        height += child.getMeasuredHeight();
-                        mMaxButtonWidth = Math.max(mMaxButtonWidth, child.getMeasuredWidth());
-                    }
-//                    width += child.getMeasuredWidth();
-//                    mMaxButtonHeight = Math.max(mMaxButtonHeight, child.getMeasuredHeight());
-                    break;
-            }
-
-        }*/
-
         switch (mExpandDirection) {
             case EXPAND_UP:
             case EXPAND_DOWN:
-                height = mAddView.getMeasuredHeight() * 2 + interval /*+ mButtonSpacing*/;
+                height = mAddView.getMeasuredHeight() * 2 + interval ;
                 width = mAddView.getMeasuredWidth();
                 break;
             case EXPAND_LEFT:
             case EXPAND_RIGHT:
                 height = mAddView.getMeasuredHeight();
-                width = mAddView.getMeasuredWidth() * 2 + interval /*+ mButtonSpacing*/;
+                width = mAddView.getMeasuredWidth() * 2 + interval ;
                 break;
         }
 
         setMeasuredDimension(width, height);
-    }
-
-    private int adjustForOvershoot(int dimension) {
-        return dimension * 12 / 10;
     }
 
     @Override
@@ -353,7 +312,6 @@ public class ToolBarMenu extends ViewGroup {
 
 
                     int childX = expandLeft ? nextX - mAddView.getMeasuredWidth() : nextX;
-//                    int childY = controllButtonTop + (mAddView.getMeasuredHeight() - child.getMeasuredHeight()) / 2;
                     int childY = nextY0;
                     child.layout(childX + offset, childY, childX + offset + child.getMeasuredWidth(), childY + Math.min(child.getMeasuredWidth(), child.getMeasuredHeight()) /*- mButtonSpacing * 2 - interval*/);
 
@@ -387,7 +345,6 @@ public class ToolBarMenu extends ViewGroup {
         switch (mExpandDirection) {
             case EXPAND_UP:
                 if (isExpanded()) {
-//                    canvas.translate(0, mButtonSpacing);
                     RectF rect1 = new RectF(0, 0, width, height - mAddView.getMeasuredHeight() - interval);
                     canvas.drawRoundRect(rect1, 10, 10, mPaint);
                 }
@@ -401,7 +358,6 @@ public class ToolBarMenu extends ViewGroup {
                 break;
             case EXPAND_LEFT:
                 if (isExpanded()) {
-//                    canvas.translate(mButtonSpacing, 0);
                     RectF rect2 = new RectF(0, 0, width - mAddView.getMeasuredWidth() - interval, height);
                     canvas.drawRoundRect(rect2, 10, 10, mPaint);
                 }
