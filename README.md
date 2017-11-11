@@ -20,7 +20,7 @@
 如果之前没有使用过sync服务的需要手动开启
 ![](https://github.com/WildDogTeam/video-demo-android-conference/raw/master/images/opensync.png)
 
-## 4. 开启实时视频通话
+## 4. 代码使用
 
 将申请的video appId 替换到constant中的WILDDOG_VIDEO_APP_ID .将申请的sync appId 替换到constant中的APPID
 填写完运行demo。
