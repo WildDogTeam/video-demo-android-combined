@@ -12,7 +12,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WilddogOptions.Builder builder = new WilddogOptions.Builder().setSyncUrl("http://" + Constants.APP_ID + ".wilddogio.com");
+        WilddogOptions.Builder builder = new WilddogOptions.Builder().setSyncUrl("http://" + Constants.WILDDOG_SYNC_APP_ID + ".wilddogio.com");
         WilddogOptions options = builder.build();
         WilddogApp.initializeApp(this, options);
         QiniuUtil.getInstance().init();

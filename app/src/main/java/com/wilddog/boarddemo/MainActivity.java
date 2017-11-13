@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         boardView = (WilddogBoard) findViewById(R.id.board);
-        boardView.setup(Constants.APP_ID, roomId + "/board", "abc"+System.currentTimeMillis(),new BoardOption(px2dip(1366),px2dip(768), BoardOption.WildBoardAuthorityMode.READWRITE));
+        boardView.setup(Constants.WILDDOG_SYNC_APP_ID, roomId + "/board", "abc"+System.currentTimeMillis(),new BoardOption(px2dip(1366),px2dip(768), BoardOption.WildBoardAuthorityMode.READWRITE));
 
         boardView.setBackgroundColor(Color.BLACK);
         actionsMenu = (ToolBarMenu) findViewById(R.id.graphic_menu);
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initRoomSDK() {
-        WilddogVideoInitializer.initialize(this, Constants.WILDDOG_VIDEO_ID, WilddogAuth.getInstance().getCurrentUser().getToken(false).getResult().getToken());
+        WilddogVideoInitializer.initialize(this, Constants.WILDDOG_VIDEO_APP_ID, WilddogAuth.getInstance().getCurrentUser().getToken(false).getResult().getToken());
         initializer = WilddogVideoInitializer.getInstance();
         initializer.addTokenListener(new WilddogVideoInitializer.TokenListener() {
             @Override
