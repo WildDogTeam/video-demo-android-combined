@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.wilddog.boarddemo.util.SharedpereferenceTool;
+import com.wilddog.boarddemo.util.SharedPereferenceTool;
 import com.wilddog.wilddogauth.WilddogAuth;
 import com.wilddog.wilddogauth.core.Task;
 import com.wilddog.wilddogauth.core.listener.OnCompleteListener;
@@ -139,10 +139,10 @@ public class LoginActivity extends AppCompatActivity {
                     islogining = false;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     String uid = var1.getResult().getWilddogUser().getUid();
-                    SharedpereferenceTool.saveUserId(LoginActivity.this,uid);
-                    SharedpereferenceTool.saveRoomId(LoginActivity.this,strRoomId);
-                    SharedpereferenceTool.saveDimension(LoginActivity.this, etDimension.getText().toString());
-                    SharedpereferenceTool.setUserInfo(LoginActivity.this,nickName.getText().toString());
+                    SharedPereferenceTool.saveUserId(LoginActivity.this,uid);
+                    SharedPereferenceTool.saveRoomId(LoginActivity.this,strRoomId);
+                    SharedPereferenceTool.saveDimension(LoginActivity.this, etDimension.getText().toString());
+                    SharedPereferenceTool.setUserInfo(LoginActivity.this,nickName.getText().toString());
                     startActivity(intent);
                 } else {
                     islogining = false;

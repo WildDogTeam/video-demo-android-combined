@@ -21,7 +21,7 @@ import com.wilddog.boarddemo.bean.StreamHolder;
 import com.wilddog.boarddemo.ui.LeftLayout;
 import com.wilddog.boarddemo.ui.RightLayout;
 import com.wilddog.boarddemo.util.Constants;
-import com.wilddog.boarddemo.util.SharedpereferenceTool;
+import com.wilddog.boarddemo.util.SharedPereferenceTool;
 import com.wilddog.toolbar.boardtoolbar.ToolBarMenu;
 import com.wilddog.video.base.LocalStream;
 import com.wilddog.video.base.LocalStreamOptions;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        roomId = SharedpereferenceTool.getRoomId(this);
+        roomId = SharedPereferenceTool.getRoomId(this);
 
         initView();
         initRoomSDK();
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private LocalStreamOptions genLocalStreamOptions() {
         LocalStreamOptions.Builder builder = new LocalStreamOptions.Builder();
-        switch (SharedpereferenceTool.getDimension(this)) {
+        switch (SharedPereferenceTool.getDimension(this)) {
             case "360P":
                 builder.dimension(LocalStreamOptions.Dimension.DIMENSION_360P);
                 break;
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         boardView = (WilddogBoard) findViewById(R.id.board);
-        boardView.setup(Constants.APPID, roomId + "/board", "abc"+System.currentTimeMillis(),new BoardOption(px2dip(1366),px2dip(768), BoardOption.WildBoardAuthorityMode.READWRITE));
+        boardView.setup(Constants.APP_ID, roomId + "/board", "abc"+System.currentTimeMillis(),new BoardOption(px2dip(1366),px2dip(768), BoardOption.WildBoardAuthorityMode.READWRITE));
 
         boardView.setBackgroundColor(Color.BLACK);
         actionsMenu = (ToolBarMenu) findViewById(R.id.graphic_menu);

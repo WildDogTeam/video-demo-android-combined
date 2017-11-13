@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wilddog.boarddemo.R;
-import com.wilddog.boarddemo.util.SharedpereferenceTool;
+import com.wilddog.boarddemo.util.SharedPereferenceTool;
 import com.wilddog.client.ChildEventListener;
 import com.wilddog.client.DataSnapshot;
 import com.wilddog.client.Query;
@@ -31,7 +31,7 @@ public abstract class WilddogListAdapter<T> extends BaseAdapter {
     public WilddogListAdapter(Query mRef, Class<T> mModelClass,  Context context) {
         this.mRef = mRef;
         this.mModelClass = mModelClass;
-        mUsername = SharedpereferenceTool.getUserId(context);
+        mUsername = SharedPereferenceTool.getUserId(context);
         mInflater = LayoutInflater.from(context);
         mModels = new ArrayList<T>();
         mKeys = new ArrayList<String>();

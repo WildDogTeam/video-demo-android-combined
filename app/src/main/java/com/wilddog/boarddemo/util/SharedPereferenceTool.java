@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
-public class SharedpereferenceTool {
+public class SharedPereferenceTool {
     private static SharedPreferences sp;
     private static final String FILE_NAME = "share_data";
 
