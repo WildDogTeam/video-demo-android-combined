@@ -2,10 +2,6 @@ package com.wilddog.boarddemo.bean;
 
 import com.wilddog.video.base.core.Stream;
 
-/**
- * Created by fly on 17-9-13.
- */
-
 public class StreamHolder {
     private Long timeStamp;
     private Stream stream;

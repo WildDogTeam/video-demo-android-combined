@@ -9,11 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-/**
- * Created by he on 2017/9/1.
- */
 
-public class BitMapUtil {
+public class BitmapUtil {
     /**
      * 图片按比例大小压缩方法
      *

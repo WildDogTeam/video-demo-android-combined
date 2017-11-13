@@ -22,7 +22,6 @@ public class GlideImageLoader implements cn.finalteam.galleryfinal.ImageLoader {
                 .override(50, 50)
                 .diskCacheStrategy(DiskCacheStrategy.NONE) //不缓存到SD卡
                 .skipMemoryCache(true)
-                //.centerCrop()
                 .into(new ImageViewTarget<GlideDrawable>(imageView) {
                     @Override
                     protected void setResource(GlideDrawable resource) {

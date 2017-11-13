@@ -17,17 +17,11 @@ import com.wilddog.boarddemo.R;
 import com.wilddog.boarddemo.ui.chat.Chat;
 import com.wilddog.boarddemo.ui.chat.ChatListAdapter;
 import com.wilddog.boarddemo.util.SharedpereferenceTool;
-import com.wilddog.client.DataSnapshot;
-import com.wilddog.client.SyncError;
 import com.wilddog.client.SyncReference;
-import com.wilddog.client.ValueEventListener;
 import com.wilddog.client.WilddogSync;
 
 import java.util.Random;
 
-/**
- * Created by he on 2017/11/2.
- */
 
 public class RightLayout extends RelativeLayout {
     private Context context;
@@ -36,7 +30,6 @@ public class RightLayout extends RelativeLayout {
     private Button send;
     private SyncReference mWilddogRef;
     private ChatListAdapter mChatListAdapter;
-    private ValueEventListener mConnectedListener;
     private String mUserId;
     private String userName;
 
@@ -79,24 +72,6 @@ public class RightLayout extends RelativeLayout {
             }
         });
 
-        // Finally, a little indication of connection status
-        mConnectedListener = mWilddogRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-               /* if (connected) {
-                    Toast.makeText(context, "Connected to Wilddog", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Disconnected from Wilddog", Toast.LENGTH_SHORT).show();
-                }*/
-            }
-
-            @Override
-            public void onCancelled(SyncError wilddogError) {
-                // No-op
-            }
-        });
-
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -115,13 +90,10 @@ public class RightLayout extends RelativeLayout {
         });
     }
     public void release() {
-        mWilddogRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
         mChatListAdapter.cleanup();
     }
 
     private void setupUsername() {
-//        SharedPreferences prefs = context.getSharedPreferences("ChatPrefs", 0);
-//        mUserId = prefs.getString("username", null);
         mUserId = SharedpereferenceTool.getUserId(context);
         userName = SharedpereferenceTool.getUserInfo(context);
         if (mUserId == null|| mUserId.equals("")) {
@@ -131,12 +103,9 @@ public class RightLayout extends RelativeLayout {
         }
     }
     private void sendMessage() {
-//        EditText inputText = (EditText) findViewById(R.id.messageInput);
         String input = inputText.getText().toString();
         if (!input.equals("")) {
-            // Create our 'model', a Chat object
             Chat chat = new Chat(input, userName,mUserId);
-            // Create a new, auto-generated child of that chat location, and save our chat data there
             mWilddogRef.push().setValue(chat);
             inputText.setText("");
         }

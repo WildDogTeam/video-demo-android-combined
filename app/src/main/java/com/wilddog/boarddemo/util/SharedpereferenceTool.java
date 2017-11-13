@@ -3,9 +3,6 @@ package com.wilddog.boarddemo.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by fly on 17-6-12.
- */
 
 public class SharedpereferenceTool {
     private static SharedPreferences sp;
@@ -49,33 +46,6 @@ public class SharedpereferenceTool {
         sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         dimension = sp.getString("dimension","480P");
         return dimension;
-    }
-    public static  void saveFPS(Context context, String dimension ){
-        sp= context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("fps",dimension);
-        editor.commit();
-    }
-
-    public static String getFPS(Context context){
-        String dimension = null;
-        sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        dimension = sp.getString("fps","15");
-        return dimension;
-    }
-
-    public static void setLoginStatus(Context context, boolean islogin){
-        sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("loginStatus",islogin);
-        editor.commit();
-    }
-
-    public static boolean getLoginStatus(Context context){
-        boolean isLoginStatus = false;
-        sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        isLoginStatus = sp.getBoolean("loginStatus",false);
-        return isLoginStatus;
     }
 
     public static void setUserInfo(Context context, String userinfo){

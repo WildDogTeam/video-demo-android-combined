@@ -53,8 +53,6 @@ public class ToolBarMenu extends ViewGroup {
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     GestureDetectorCompat mDetectorCompat;
     private ViewGroup mAddView;
-    private int mMaxButtonWidth;
-    private int mMaxButtonHeight;
     private int mButtonsCount;
     private TouchDelegateGroup mTouchDelegateGroup;
     private OnFloatingActionsMenuClickListener mClickListener;
@@ -86,14 +84,6 @@ public class ToolBarMenu extends ViewGroup {
     }
 
     /**
-     * 切换控制按钮背景图
-     */
-    public void setAddButtonBackground(int drawable) {
-        mAddView.setBackgroundResource(drawable);
-
-    }
-
-    /**
      * dip转px
      */
     private int dip2px(float dpValue) {
@@ -113,17 +103,6 @@ public class ToolBarMenu extends ViewGroup {
         setTouchDelegate(mTouchDelegateGroup);
 
         TypedArray attr = context.obtainStyledAttributes(attributeSet, R.styleable.FloatingActionsMenu, 0, 0);
-//        mButtonSpacing = dip2px(attr.getDimension(R.styleable.FloatingActionsMenu_fab_buttonSpacing, 2));
-//        mAddButtonBackground = attr.getDrawable(R.styleable.FloatingActionsMenu_fab_addButtonBackground);
-//        mAddButtonWidth = attr.getDimension(R.styleable.FloatingActionsMenu_fab_addButtonWidth, 20);
-//        mAddButtonHeight = attr.getDimension(R.styleable.FloatingActionsMenu_fab_addButtonHeight, 20);
-//        mAddButtonStyle = attr.getInt(R.styleable.FloatingActionsMenu_fab_addButtonStyle, STYLE_CUSTOM);
-
-//        mAddButtonPlusColor = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonPlusIconColor, getColor(android.R.mColor.white));
-//        mAddButtonColorNormal = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorNormal, getColor(android.R.mColor.holo_blue_dark));
-//        mAddButtonColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressed, getColor(android.R.mColor.holo_blue_light));
-//        mAddButtonSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_addButtonSize, FloatingActionButton.SIZE_NORMAL);
-//        mAddButtonStrokeVisible = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonStrokeVisible, true);
         mExpandDirection = attr.getInt(R.styleable.FloatingActionsMenu_fab_expandDirection, EXPAND_UP);
         interval = dip2px(attr.getDimension(R.styleable.FloatingActionsMenu_fab_interval, 0));
         attr.recycle();
@@ -158,7 +137,6 @@ public class ToolBarMenu extends ViewGroup {
                 ll.setOrientation(LinearLayout.VERTICAL);
                 break;
         }
-//        mAddView.setId(R.id.fab_expand_menu_button);
 
         for (int i = 0; i < mAddView.getChildCount(); i++) {
             final ToolBarControllButton controllButton = (ToolBarControllButton) mAddView.getChildAt(i);
@@ -204,64 +182,20 @@ public class ToolBarMenu extends ViewGroup {
         width = 0;
         height = 0;
 
-        mMaxButtonWidth = 0;
-        mMaxButtonHeight = 0;
-
-       /* for (int i = 0; i < mButtonsCount; i++) {
-            View child = getChildAt(i);
-
-            if (child.getVisibility() == GONE) {
-                continue;
-            }
-
-            switch (mExpandDirection) {
-
-                case EXPAND_UP:
-                case EXPAND_DOWN:
-//                    mMaxButtonWidth = Math.max(mMaxButtonWidth, child.getMeasuredWidth());
-//                    height += child.getMeasuredHeight();
-                    if (child == mAddView) {
-                        height = mAddView.getMeasuredHeight();
-//                        width += mAddView.getMeasuredWidth() / 2;
-                    } else {
-                        width += child.getMeasuredWidth();
-                        mMaxButtonHeight = Math.max(mMaxButtonHeight, child.getMeasuredHeight());
-                    }
-                    break;
-                case EXPAND_LEFT:
-                case EXPAND_RIGHT:
-                    if (child == mAddView) {
-                        width = mAddView.getMeasuredWidth();
-//                        width += mAddView.getMeasuredWidth() / 2;
-                    } else {
-                        height += child.getMeasuredHeight();
-                        mMaxButtonWidth = Math.max(mMaxButtonWidth, child.getMeasuredWidth());
-                    }
-//                    width += child.getMeasuredWidth();
-//                    mMaxButtonHeight = Math.max(mMaxButtonHeight, child.getMeasuredHeight());
-                    break;
-            }
-
-        }*/
-
         switch (mExpandDirection) {
             case EXPAND_UP:
             case EXPAND_DOWN:
-                height = mAddView.getMeasuredHeight() * 2 + interval /*+ mButtonSpacing*/;
+                height = mAddView.getMeasuredHeight() * 2 + interval ;
                 width = mAddView.getMeasuredWidth();
                 break;
             case EXPAND_LEFT:
             case EXPAND_RIGHT:
                 height = mAddView.getMeasuredHeight();
-                width = mAddView.getMeasuredWidth() * 2 + interval /*+ mButtonSpacing*/;
+                width = mAddView.getMeasuredWidth() * 2 + interval ;
                 break;
         }
 
         setMeasuredDimension(width, height);
-    }
-
-    private int adjustForOvershoot(int dimension) {
-        return dimension * 12 / 10;
     }
 
     @Override
@@ -353,7 +287,6 @@ public class ToolBarMenu extends ViewGroup {
 
 
                     int childX = expandLeft ? nextX - mAddView.getMeasuredWidth() : nextX;
-//                    int childY = controllButtonTop + (mAddView.getMeasuredHeight() - child.getMeasuredHeight()) / 2;
                     int childY = nextY0;
                     child.layout(childX + offset, childY, childX + offset + child.getMeasuredWidth(), childY + Math.min(child.getMeasuredWidth(), child.getMeasuredHeight()) /*- mButtonSpacing * 2 - interval*/);
 
@@ -387,7 +320,6 @@ public class ToolBarMenu extends ViewGroup {
         switch (mExpandDirection) {
             case EXPAND_UP:
                 if (isExpanded()) {
-//                    canvas.translate(0, mButtonSpacing);
                     RectF rect1 = new RectF(0, 0, width, height - mAddView.getMeasuredHeight() - interval);
                     canvas.drawRoundRect(rect1, 10, 10, mPaint);
                 }
@@ -401,7 +333,6 @@ public class ToolBarMenu extends ViewGroup {
                 break;
             case EXPAND_LEFT:
                 if (isExpanded()) {
-//                    canvas.translate(mButtonSpacing, 0);
                     RectF rect2 = new RectF(0, 0, width - mAddView.getMeasuredWidth() - interval, height);
                     canvas.drawRoundRect(rect2, 10, 10, mPaint);
                 }
@@ -631,27 +562,6 @@ public class ToolBarMenu extends ViewGroup {
         requestLayout();
     }
 
-   /* @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState);
-        savedState.mExpanded = mExpanded;
-
-        return savedState;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof SavedState) {
-            SavedState savedState = (SavedState) state;
-            mExpanded = savedState.mExpanded;
-            mTouchDelegateGroup.setEnabled(mExpanded);
-            super.onRestoreInstanceState(savedState.getSuperState());
-        } else {
-            super.onRestoreInstanceState(state);
-        }
-    }*/
-
     public void bindingBoard(WilddogBoard boardView, Activity activity) {
 
         toolBarOption.setBoardView(boardView, activity);
@@ -704,39 +614,6 @@ public class ToolBarMenu extends ViewGroup {
 
         void addButtonLister(ToolBarControllButton controllButton, int controllButtonType);
     }
-/*
-
-    public static class SavedState extends BaseSavedState {
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-
-            @Override
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
-        public boolean mExpanded;
-
-        public SavedState(Parcelable parcel) {
-            super(parcel);
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            mExpanded = in.readInt() == 1;
-        }
-
-        @Override
-        public void writeToParcel(@NonNull Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeInt(mExpanded ? 1 : 0);
-        }
-    }
-*/
 
     private class LayoutParams extends ViewGroup.LayoutParams {
 

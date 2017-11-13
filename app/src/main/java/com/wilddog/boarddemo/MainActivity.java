@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import com.wilddog.boarddemo.ui.LeftLayout;
 import com.wilddog.boarddemo.ui.RightLayout;
 import com.wilddog.boarddemo.util.Constants;
 import com.wilddog.boarddemo.util.SharedpereferenceTool;
-import com.wilddog.client.WilddogSync;
 import com.wilddog.toolbar.boardtoolbar.ToolBarMenu;
 import com.wilddog.video.base.LocalStream;
 import com.wilddog.video.base.LocalStreamOptions;
@@ -44,8 +42,6 @@ import me.leefeng.promptlibrary.PromptDialog;
 import static com.wilddog.board.utils.BoardUtil.px2dip;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String TAG = "MainActivity";
 
     private WilddogBoard boardView;
     private ToolBarMenu actionsMenu;
@@ -76,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 leftMenu.deteachAll();
                 showRemoteViews();
             }else {
-                deteachAll();
                 leftMenu.showRemoteViews();
             }
         }
@@ -88,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView roomNum;
     private TextView quit;
     private PromptDialog promptDialog;
-    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initRoomSDK();
         createLocalStream();
         joinRoom();
-//        initData();
 
-        leftMenu.addLocalStream(localStream);
         leftMenu.setStreamHolder(streamHolders);
     }
 
@@ -137,9 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onConnected(WilddogRoom wilddogRoom) {
                 Toast.makeText(MainActivity.this,"已经连接上服务器",Toast.LENGTH_SHORT).show();
-                // 此时服务器返回用户id
-//                setLocalStreamId();
-
                 room.publish(localStream, new CompleteListener() {
                     @Override
                     public void onComplete(WilddogVideoError wilddogVideoError) {
@@ -160,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStreamAdded(WilddogRoom wilddogRoom, RoomStream roomStream) {
-                //订阅流 如果超过8个就补订阅流
+                //订阅流 如果超过8个就不订阅流
                 if(streamHolders.size()>=7)return;
                 room.subscribe(roomStream);
             }
@@ -187,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStreamChanged(WilddogRoom wilddogRoom, RoomStream roomStream) {
-                // 混流使用
             }
 
             @Override
@@ -274,21 +262,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         leftMenu = (LeftLayout) findViewById(R.id.rl_leftmenu);
         ViewGroup.LayoutParams leftParams = leftMenu.getLayoutParams();
         leftParams.width = getWindowWidth() / 3;
-        leftParams.height = getwindowHeight();
+        leftParams.height = getWindowHeight();
         leftMenu.setLayoutParams(leftParams);
         leftMenu.addDialog(promptDialog);
 
         rightMenu = (RightLayout) findViewById(R.id.rl_rightmenu);
-        final ViewGroup.LayoutParams rightParams = rightMenu.getLayoutParams();
+        ViewGroup.LayoutParams rightParams = rightMenu.getLayoutParams();
         rightParams.width = getWindowWidth() * 2 / 3;
-        rightParams.height = getwindowHeight();
+        rightParams.height = getWindowHeight();
         rightMenu.setLayoutParams(rightParams);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.v4_drawerlayout);
 
         findViewById(R.id.iv_show).setOnClickListener(this);
-
-        linearLayout = (LinearLayout) findViewById(R.id.ll_show);
 
         findViewById(R.id.iv_hide).setOnClickListener(this);
 
@@ -300,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                hideVideoViews();
+                hideLocalVideoView();
                 deteachAll();
                 leftMenu.showRemoteViews();
 
@@ -308,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                showVideoViews();
+                showLocalVideoView();
                 leftMenu.deteachAll();
                 showRemoteViews();
             }
@@ -328,15 +314,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         actionsMenu.bindingBoard(boardView, this);
 
     }
-    private void showVideoViews() {
+    private void showLocalVideoView() {
         localView.setVisibility(View.VISIBLE);
-//        for (WilddogVideoView romote :
-//                remoteVideoViews) {
-//            romote.setVisibility(View.VISIBLE);
-//        }
     }
 
-    private int getwindowHeight() {
+    private int getWindowHeight() {
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         return metric.heightPixels;
@@ -345,7 +327,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int getWindowWidth() {
         DisplayMetrics metric = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metric);
-        Log.e(TAG, "getWindowWidth: "+metric.widthPixels );
         return metric.widthPixels;
     }
 
@@ -364,7 +345,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_show:
-
                 drawerLayout.openDrawer(leftMenu);
                 drawerLayout.openDrawer(rightMenu);
                 break;
@@ -384,12 +364,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void hideVideoViews() {
+    private void hideLocalVideoView() {
         localView.setVisibility(View.GONE);
-//        for (WilddogVideoView romote :
-//                remoteVideoViews) {
-//            romote.setVisibility(View.GONE);
-//        }
     }
 
     private void leaveRoom() {
@@ -416,13 +392,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         leftMenu.release();
         rightMenu.release();
         promptDialog.onBackPressed();
-        WilddogSync.getInstance().getReference().child(roomId+"/nick").child(localStream.getStreamId()+"").removeValue();
-//        reference.child("audioEnable").removeValue();
-
-//        for (StreamHolder stream :
-//                streamHolders) {
-//            stream.getStream().close();
-//        }
     }
 
 }

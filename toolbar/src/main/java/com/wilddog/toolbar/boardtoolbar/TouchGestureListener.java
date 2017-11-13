@@ -18,7 +18,6 @@ public class TouchGestureListener implements GestureDetector.OnGestureListener {
     private ToolBarMenu mActionMenu;
     private int offetPadding = 10;
     private boolean mIsHide = false;
-    private boolean mIsLongPressed = false;
 
     public TouchGestureListener(ToolBarMenu mActionMenu) {
         this.mActionMenu = mActionMenu;
@@ -35,57 +34,16 @@ public class TouchGestureListener implements GestureDetector.OnGestureListener {
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        Log.i("MyGesture", "onSingleTapUp");
-        mIsLongPressed = false;
         return false;
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        Log.i("MyGesture", "onScroll");
-
-       /* if(!mIsLongPressed)
-            return false;
-        // 计算偏移量
-        int dx = (int) (e2.getX()-e1.getX());
-        int dy = (int) (e2.getY()-e1.getY());
-
-        // 计算控件的区域
-        int left = mActionMenu.getLeft() + dx;
-        int right = mActionMenu.getRight() + dx;
-        int top = mActionMenu.getTop() + dy;
-        int bottom = mActionMenu.getBottom() + dy;
-
-        // 超出屏幕检测
-        if (left < 0) {
-            left = 0;
-            right = mActionMenu.getWidth();
-        }
-
-        if (right > getScreenWidth()) {
-            right = getScreenWidth();
-            left = getScreenWidth() - mActionMenu.getWidth();
-        }
-
-        if (top < 0) {
-            top = 0;
-            bottom = mActionMenu.getHeight();
-        }
-
-        if (bottom > getScreenHeight()) {
-            bottom = getScreenHeight();
-            top = getScreenHeight() - mActionMenu.getHeight();
-        }
-
-        mActionMenu.layout(left, top, right, bottom);*/
-
         return false;
     }
 
     @Override
     public void onLongPress(MotionEvent e) {
-        Log.i("MyGesture", "onLongPress");
-        mIsLongPressed = true;
     }
 
 
@@ -114,13 +72,4 @@ public class TouchGestureListener implements GestureDetector.OnGestureListener {
         return false;
     }
 
-    int getScreenWidth() {
-        int screenWidth = mActionMenu.getContext().getResources().getDisplayMetrics().widthPixels;
-        return screenWidth;
-    }
-
-    int getScreenHeight() {
-        int screenHeight = mActionMenu.getContext().getResources().getDisplayMetrics().heightPixels;
-        return screenHeight;
-    }
 }

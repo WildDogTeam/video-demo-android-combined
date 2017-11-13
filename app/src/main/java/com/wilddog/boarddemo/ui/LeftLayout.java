@@ -10,8 +10,6 @@ import android.widget.RelativeLayout;
 import com.wilddog.boarddemo.R;
 import com.wilddog.boarddemo.bean.StreamHolder;
 import com.wilddog.boarddemo.util.Constants;
-import com.wilddog.boarddemo.util.SharedpereferenceTool;
-import com.wilddog.video.base.LocalStream;
 import com.wilddog.video.base.WilddogVideoView;
 
 import java.util.ArrayList;
@@ -23,9 +21,7 @@ import me.leefeng.promptlibrary.PromptDialog;
 
 public class LeftLayout extends RelativeLayout implements View.OnClickListener {
 
-    protected static final String TAG = "EaseChatMessageList";
     private Context context;
-//    private WilddogVideoView localViewIn;
     private WilddogVideoView remoteView1;
     private WilddogVideoView remoteView2;
     private WilddogVideoView remoteView3;
@@ -36,7 +32,6 @@ public class LeftLayout extends RelativeLayout implements View.OnClickListener {
     private List<WilddogVideoView> remoteVideoViewsL = new ArrayList<>();
     private List<StreamHolder> streamHolders = new ArrayList<>();
 
-    private LocalStream localStream;
     private PromptDialog promptDialog;
 
 
@@ -57,8 +52,6 @@ public class LeftLayout extends RelativeLayout implements View.OnClickListener {
     private void init(Context context){
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.left, this);
-        String roomId = SharedpereferenceTool.getRoomId(context);
-        String localNicname = SharedpereferenceTool.getUserInfo(context);
         remoteView1 = (WilddogVideoView) findViewById(R.id.wvv_remote1_in);
         remoteView2 = (WilddogVideoView) findViewById(R.id.wvv_remote2_in);
         remoteView3 = (WilddogVideoView) findViewById(R.id.wvv_remote3_in);
@@ -73,8 +66,6 @@ public class LeftLayout extends RelativeLayout implements View.OnClickListener {
         remoteVideoViewsL.add(remoteView5);
         remoteVideoViewsL.add(remoteView6);
         remoteVideoViewsL.add(remoteView7);
-
-//        this.localNic.setText(localNicname);
 
         findViewById(R.id.copy_invite_left).setOnClickListener(this);
 
@@ -96,7 +87,6 @@ public class LeftLayout extends RelativeLayout implements View.OnClickListener {
         for(int i = 0;i<streamHolders.size();i++){
             StreamHolder streamHolder = streamHolders.get(i);
             streamHolder.getStream().attach(remoteVideoViewsL.get(i));
-//            viewHolders.get(i).nick.setText(streamNickMap.get(streamHolder.getId()+""));
         }
         for (WilddogVideoView remote:
                 remoteVideoViewsL) {
@@ -120,11 +110,6 @@ public class LeftLayout extends RelativeLayout implements View.OnClickListener {
         for(WilddogVideoView videoView: remoteVideoViewsL){
             videoView.release();
         }
-    }
-
-    public void addLocalStream(LocalStream localStream) {
-
-        this.localStream = localStream;
     }
 
     public void setStreamHolder(List<StreamHolder> paramstreamHolders) {
