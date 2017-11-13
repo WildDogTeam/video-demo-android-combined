@@ -43,19 +43,6 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     />
-<!--
-                <ImageView
-                    android:id="@+id/local_mic"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/audio_bg" />
-
-                <ImageView
-                    android:id="@+id/local_board"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/audio_bg" />-->
             </LinearLayout>
         </RelativeLayout>
 

@@ -30,17 +30,10 @@ import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
     private Button loginWithAnonymous;
     private boolean islogining = false;
     private EditText roomId;
-    private static final int REQUEST_CODE = 0; // 请求码
 
-    // 所需的全部权限
-    static final String[] PERMISSIONS = new String[]{
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.CAMERA
-    };
     private PromptDialog promptDialog;
     private EditText etDimension;
     private EditText nickName;
@@ -95,8 +88,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 PromptButton cancle = new PromptButton("取消", null);
                 cancle.setTextColor(Color.parseColor("#0076ff"));
-                //设置显示的文字大小及颜色
-//                promptDialog.getAlertDefaultBuilder().textSize(12).textColor(Color.GRAY);
                 //默认两个按钮为Alert对话框，大于三个按钮的为底部SHeet形式展现
                 promptDialog.showAlertSheet("", true, cancle,
                         new PromptButton("360P",promptButtonListener), new PromptButton("480P", promptButtonListener),
@@ -147,7 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (var1.isSuccessful()) {
                     islogining = false;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.putExtra("roomId", strRoomId);
                     String uid = var1.getResult().getWilddogUser().getUid();
                     SharedpereferenceTool.saveUserId(LoginActivity.this,uid);
                     SharedpereferenceTool.saveRoomId(LoginActivity.this,strRoomId);

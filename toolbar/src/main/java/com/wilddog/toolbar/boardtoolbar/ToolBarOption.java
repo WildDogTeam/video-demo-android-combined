@@ -18,7 +18,7 @@ import com.wilddog.board.listener.OnObjectListener;
 import com.wilddog.toolbar.R;
 import com.wilddog.toolbar.util.BitmapUtil;
 import com.wilddog.toolbar.util.GlideImageLoader;
-import com.wilddog.toolbar.util.QIniuUtil;
+import com.wilddog.toolbar.util.QiniuUtil;
 
 import org.json.JSONObject;
 
@@ -486,14 +486,14 @@ public class ToolBarOption implements View.OnClickListener, OnObjectListener {
         promptDialog.showLoading("正在上传");
         Log.e("aaa", "uploadPic: " );
         String imagePath = BitmapUtil.getImagePath(image, System.currentTimeMillis() + "");
-        QIniuUtil.getInstance().getUploadManager().put(imagePath, System.currentTimeMillis() + "", QIniuUtil.getInstance().getToken(),
+        QiniuUtil.getInstance().getUploadManager().put(imagePath, System.currentTimeMillis() + "", QiniuUtil.getInstance().getToken(),
                 new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject res) {
                         promptDialog.dismiss();
                         if (info.isOK()) {
                             Log.i("qiniu", "Upload Success");
-                            WilddogBoardObject wilddogBoardObject = WilddogBoardObject.creatImage(mBoardView, QIniuUtil.getInstance().getURL(key));
+                            WilddogBoardObject wilddogBoardObject = WilddogBoardObject.creatImage(mBoardView, QiniuUtil.getInstance().getURL(key));
                             mBoardView.addObject(wilddogBoardObject);
                         } else {
                             Log.i("qiniu", "Upload Fail");

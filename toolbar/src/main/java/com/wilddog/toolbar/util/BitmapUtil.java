@@ -9,9 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-/**
- * Created by he on 2017/9/1.
- */
 
 public class BitmapUtil {
     /**

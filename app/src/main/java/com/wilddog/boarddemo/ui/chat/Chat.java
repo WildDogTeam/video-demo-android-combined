@@ -1,9 +1,5 @@
 package com.wilddog.boarddemo.ui.chat;
 
-/**
- * @author Jeen
- * @since 9/16/15
- */
 public class Chat {
 
     private String message;
