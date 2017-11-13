@@ -22,5 +22,5 @@
 
 ## 4. 代码使用
 
-将申请的 Video appId 替换到Constants中的WILDDOG_VIDEO_APP_ID。将申请的Sync appId 替换到Constants中的WILDDOG_SYNC_APP_ID
-，填写完运行demo。
+将申请的 VideoAppID 替换到 Constants 中的 WILDDOG_VIDEO_APP_ID。将申请的 Sync AppID 替换到 Constants 中的 WILDDOG_SYNC_APP_ID
+，填写完运行 demo。
