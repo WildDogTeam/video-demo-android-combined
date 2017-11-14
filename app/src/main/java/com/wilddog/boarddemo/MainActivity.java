@@ -149,17 +149,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStreamAdded(WilddogRoom wilddogRoom, RoomStream roomStream) {
-                //订阅流 如果超过8个就不订阅流
                 if(streamHolders.size()>=7)return;
+                //订阅流 如果超过8个就不订阅流
                 room.subscribe(roomStream);
             }
 
             @Override
             public void onStreamRemoved(WilddogRoom wilddogRoom, RoomStream roomStream) {
 
-                //具体流 超过8个的退出可能不包含,所以移除时候判断是否包含
-                if(roomStream==null)
+                if(roomStream==null) {
                     return;
+                }
+                //具体流 超过8个的退出可能不包含,所以移除时候判断是否包含
                 removeRemoteStream(roomStream.getStreamId());
                 handler.sendEmptyMessage(0);
             }
