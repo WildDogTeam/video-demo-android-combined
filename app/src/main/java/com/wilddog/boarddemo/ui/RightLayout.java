@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.wilddog.boarddemo.R;
 import com.wilddog.boarddemo.ui.chat.Chat;
 import com.wilddog.boarddemo.ui.chat.ChatListAdapter;
-import com.wilddog.boarddemo.util.SharedpereferenceTool;
+import com.wilddog.boarddemo.util.SharedPereferenceTool;
 import com.wilddog.client.SyncReference;
 import com.wilddog.client.WilddogSync;
 
@@ -50,7 +50,7 @@ public class RightLayout extends RelativeLayout {
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.right, this);
         setupUsername();
-        String roomId = SharedpereferenceTool.getRoomId(context);
+        String roomId = SharedPereferenceTool.getRoomId(context);
         lvChat = (ListView) findViewById(R.id.lv_chat);
         inputText = (EditText) findViewById(R.id.et_msg);
         send = (Button) findViewById(R.id.btn_send);
@@ -94,12 +94,12 @@ public class RightLayout extends RelativeLayout {
     }
 
     private void setupUsername() {
-        mUserId = SharedpereferenceTool.getUserId(context);
-        userName = SharedpereferenceTool.getUserInfo(context);
+        mUserId = SharedPereferenceTool.getUserId(context);
+        userName = SharedPereferenceTool.getUserInfo(context);
         if (mUserId == null|| mUserId.equals("")) {
             Random r = new Random();
             mUserId = "WilddogUser" + r.nextInt(100000);
-            SharedpereferenceTool.saveUserId(context, mUserId);
+            SharedPereferenceTool.saveUserId(context, mUserId);
         }
     }
     private void sendMessage() {
